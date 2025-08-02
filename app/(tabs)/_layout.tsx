@@ -6,14 +6,13 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        headerShown: false,
         tabBarActiveTintColor: 'black',
       }}>
       <Tabs.Screen
         name="index"
         options={{
           title: 'Conectar',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="bluetooth-b" color={color} />,
           headerRight: () => (
             <Link href="/modal" asChild>
               <HeaderButton />
@@ -25,21 +24,21 @@ export default function TabLayout() {
         name="dashboard"
         options={{
           title: 'Dashboard',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="bars" color={color} />,
         }}
       />
       <Tabs.Screen
         name="sincronizar"
         options={{
           title: 'Sincronizar',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="paper-plane" color={color} />,
         }}
       />
       <Tabs.Screen
         name="configuracoes"
         options={{
           title: 'Configurações',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="sliders" color={color} />,
         }}
       />
     </Tabs>

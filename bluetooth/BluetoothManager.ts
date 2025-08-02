@@ -1,16 +1,16 @@
-// import { BleManager, Device } from "react-native-ble-plx";
-import create from "zustand";
+import { BleManager, Device } from "react-native-ble-plx";
+import { create } from "zustand";
 import { produce } from "immer";
-// import base64 from 'base-64';
+import base64 from 'base-64';
 
-// export const BluetoothManager = new BleManager();
+export const BluetoothManager = new BleManager();
 
 type State = {
-  devices: Record<string, any>;
+  devices: Record<string, Device>;
   isScanning: boolean;
-  connectedDevice: any | null;
+  connectedDevice: Device | null;
   isConnectedAndSupported: boolean | null;
-  datas: Array<string>;
+  datas: string[];
   firstTime: boolean | null;
   fileStatus: string,
   file: any;
@@ -47,18 +47,18 @@ const updateStore = function (updater: (state: State) => void) {
 
 // Busca dispositivos próximos
 export function doDeviceScan() {
-  // BluetoothManager.startDeviceScan(null, null, (error, device) => {
-  //   if (error) {
-  //     // Handle error (scanning will be stopped automatically)
-  //     console.error(error);
-  //     return;
-  //   }
+  BluetoothManager.startDeviceScan(null, null, (error, device) => {
+    if (error) {
+      // Handle error (scanning will be stopped automatically)
+      console.error(error);
+      return;
+    }
 
-  //   updateStore((state) => {
-  //     // @ts-ignore
-  //     state.devices[device.id] = device;
-  //   });
-  // });
+    updateStore((state) => {
+      // @ts-ignore
+      state.devices[device.id] = device;
+    });
+  });
 
   updateStore((state) => {
     state.isScanning = true;
@@ -74,61 +74,61 @@ export function stopScanning() {
   updateStore((state) => {
     state.isScanning = false;
   });
-  // BluetoothManager.stopDeviceScan();
+  BluetoothManager.stopDeviceScan();
 }
 
 // Faz a conexão com o dispositivo
 export async function connect(deviceToConnect: any) {
-  // BluetoothManager.stopDeviceScan();
-  // await BluetoothManager.connectToDevice(deviceToConnect.id).then(async device => {
-  //   await device.discoverAllServicesAndCharacteristics();
-  //   BluetoothManager.stopDeviceScan();
-  //   device.services().then(async service => {
-  //   });
-  //   updateStore((state) => {
-  //     state.connectedDevice = device;
-  //   });
-  //   let serviceUUID = "0000ffe0-0000-1000-8000-00805f9b34fb"
-  //   let uuid = "0000ffe1-0000-1000-8000-00805f9b34fb";
+  BluetoothManager.stopDeviceScan();
+  await BluetoothManager.connectToDevice(deviceToConnect.id).then(async device => {
+    await device.discoverAllServicesAndCharacteristics();
+    BluetoothManager.stopDeviceScan();
+    device.services().then(async service => {
+    });
+    updateStore((state) => {
+      state.connectedDevice = device;
+    });
+    let serviceUUID = "0000ffe0-0000-1000-8000-00805f9b34fb"
+    let uuid = "0000ffe1-0000-1000-8000-00805f9b34fb";
 
-  //   // @ts-ignore
-  //   BluetoothManager.monitorCharacteristicForDevice(device.id, serviceUUID, uuid, (error: BleError | null, characteristic: Characteristic | null) => {
-  //     if (error || !characteristic) {
-  //       return 
-  //     }
+    // @ts-ignore
+    BluetoothManager.monitorCharacteristicForDevice(device.id, serviceUUID, uuid, (error: BleError | null, characteristic: Characteristic | null) => {
+      if (error || !characteristic) {
+        return 
+      }
     
-  //      if (characteristic) {
-  //       var raw = characteristic?.value;
-  //       var decodeVal = base64.decode(raw || "");
+       if (characteristic) {
+        const raw = characteristic?.value;
+        const decodeVal = base64.decode(raw || "");
 
-  //       updateStore((state) => {
-  //         state.monitor =  `${decodeVal}`;
-  //       });
+        updateStore((state) => {
+          state.monitor =  `${decodeVal}`;
+        });
 
-  //       if(useDevicesStore.getState().firstTime == true){
-  //         updateStore((state) => {
-  //           state.firstTime = false;
-  //           state.serial = `${decodeVal.substring(0, 6)}`;
-  //           state.version = `${decodeVal.substring(6, 10)}`;
-  //           state.scale = `${decodeVal.substring(10, 11)}`;
-  //           state.interval = `${decodeVal.substring(11, 15)}`;
-  //         });
-  //       }
+        if(useDevicesStore.getState().firstTime === true){
+          updateStore((state) => {
+            state.firstTime = false;
+            state.serial = `${decodeVal.substring(0, 6)}`;
+            state.version = `${decodeVal.substring(6, 10)}`;
+            state.scale = `${decodeVal.substring(10, 11)}`;
+            state.interval = `${decodeVal.substring(11, 15)}`;
+          });
+        }
 
-  //       if(decodeVal == 'START_FILE' || decodeVal == 'END_FILE' || decodeVal == 'NO_FILE'){
-  //         updateStore((state) => {
-  //           state.fileStatus = `${decodeVal}`;
-  //         });
-  //       }
+        if(decodeVal === 'START_FILE' || decodeVal === 'END_FILE' || decodeVal === 'NO_FILE'){
+          updateStore((state) => {
+            state.fileStatus = `${decodeVal}`;
+          });
+        }
 
-  //       if(useDevicesStore.getState().fileStatus == 'START_FILE'){
-  //         updateStore((state) => {
-  //           state.file = `${useDevicesStore.getState().file} ${decodeVal}`;
-  //         })
-  //       }
-  //     }
-  //    });
-  // });
+        if(useDevicesStore.getState().fileStatus === 'START_FILE'){
+          updateStore((state) => {
+            state.file = `${useDevicesStore.getState().file} ${decodeVal}`;
+          })
+        }
+      }
+     });
+  });
 }
 
 // Função que verifica se o dispisitivo é suportado e está conectado
@@ -143,7 +143,7 @@ export function disconnect() {
   const dev = useDevicesStore.getState().connectedDevice;
   if (!dev) return;
 
-  // BluetoothManager.cancelDeviceConnection(dev.id)
+  BluetoothManager.cancelDeviceConnection(dev.id)
   updateStore((state) => {
     state.devices= {};
     state.connectedDevice= null;
@@ -174,7 +174,7 @@ export function ReCall() {
 
 // Atualiza o estado da variável que guarda as datas 
 // que serão sincronizadas
-export function setDatas(datas : Array<string>) {
+export function setDatas(datas: string[]) {
   updateStore((state) => {
     state.datas = datas
     state.fileStatus = ''

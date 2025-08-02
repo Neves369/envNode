@@ -1,4 +1,4 @@
-import create from "zustand";
+import { create } from "zustand";
 import { produce } from "immer";
 import { Buffer } from "buffer";
 // import base64, { decode } from 'base-64';

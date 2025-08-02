@@ -1,26 +1,18 @@
-import React from "react";
-import { View } from "react-native";
-import LottieView from "lottie-react-native";
+import { View } from 'react-native';
+import LottieView from 'lottie-react-native';
 import splashW from '~/assets/images/sync.json';
 
-const Sync: React.FC = () => {
+const Sync = () => {
   return (
-    <View 
-      style = {{ 
+    <View
+      style={{
         width: 550,
         height: 550,
         alignItems: 'center',
         justifyContent: 'center',
-        // backgroundColor: 'red'
-      }}
-      >
-        <LottieView 
-          source={splashW} 
-          autoPlay 
-          loop 
-          resizeMode='contain'
-          
-        />
+        backgroundColor: 'red',
+      }}>
+      <LottieView ref={animation} source={splashW} autoPlay loop resizeMode="contain" />
     </View>
   );
 };

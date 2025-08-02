@@ -1,6 +1,21 @@
-import { ImageBackground, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { useState } from 'react';
+import { useDevicesStore } from '~/bluetooth/BluetoothManager';
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  ImageBackground,
+  TouchableOpacity,
+} from 'react-native';
+import { FontAwesome, Ionicons } from '@expo/vector-icons';
 
 export default function Home() {
+  const [clockState, setClockState] = useState();
+  const store = useDevicesStore((state) => state);
+  const [isFocused, setIsFocused] = useState(false);
+  const [timerCount, setTimer] = useState<number>(60);
+
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -8,61 +23,49 @@ export default function Home() {
           <ImageBackground
             style={styles.itemHeader}
             source={require('../../assets/images/time.jpg')}>
-            {/* <VW style={styles.viewInfo}>
-            <Text category='h4' style={styles.title}>Data e Hora</Text>
+            <View style={styles.viewInfo}>
+              <Text style={styles.title}>Data e Hora</Text>
 
-            <VW
-              style={{
-                flex: 1,
-                flexDirection: 'row', 
-                justifyContent: 'center',
-                alignContent: 'center'
-              }}
-            >
-              {
-                isFocused?
-                  store.monitor?
-                    <Text style={styles.info}>{clockState}</Text>
-                  :
-                    <Text style={styles.info}>...</Text>
-                :
-                  <ActivityIndicator style={styles.loader} color={'white'} size={30}/>
-              }
-            </VW>
-          </VW> */}
+              <View
+                style={{
+                  flex: 1,
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  alignContent: 'center',
+                }}>
+                {isFocused ? store.monitor && <Text style={styles.info}>{clockState}</Text> : null}
+              </View>
+            </View>
           </ImageBackground>
         </TouchableOpacity>
+
         <TouchableOpacity style={styles.item}>
           <ImageBackground
             style={styles.itemHeader}
             source={require('../../assets/images/temperatura.png')}>
-            {/* <VW style={styles.viewInfo}>
-            <Text category='h4' style={styles.title}>Temperatura</Text>
+            <View style={styles.viewInfo}>
+              <Text style={styles.title}>Temperatura</Text>
 
-            <VW
-              style={{
-                flex: 1,
-                flexDirection: 'row', 
-                justifyContent: 'center',
-                alignContent: 'center'
-              }}
-            >
-              <FontAwesome 
-                name="thermometer" 
-                size={35} 
-                color="#e63946" 
-              />
-              {
-                isFocused?
-                  store.monitor?
-                    <Text style={styles.info}>{`${store.monitor?.substring(0, store.monitor.indexOf('x'))}°`}</Text>
-                  :
-                    <Text style={styles.info}>...</Text>
-                :
-                  <ActivityIndicator style={styles.loader} color={'white'} size={30}/>
-              }
-            </VW>
-          </VW> */}
+              <View
+                style={{
+                  flex: 1,
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  alignContent: 'center',
+                }}>
+                {isFocused
+                  ? store.monitor && (
+                      <>
+                        <Text
+                          style={
+                            styles.info
+                          }>{`${store.monitor?.substring(0, store.monitor.indexOf('x'))}°`}</Text>
+                        <FontAwesome name="thermometer" size={35} color="#e63946" />
+                      </>
+                    )
+                  : null}
+              </View>
+            </View>
           </ImageBackground>
         </TouchableOpacity>
 
@@ -70,34 +73,30 @@ export default function Home() {
           <ImageBackground
             style={styles.itemHeader}
             source={require('../../assets/images/umidade.png')}>
-            {/* <VW style={styles.viewInfo}>
-            <Text category='h4' style={styles.title}>Umidade</Text>
+            <View style={styles.viewInfo}>
+              <Text style={styles.title}>Umidade</Text>
 
-            <VW
-              style={{
-                flex: 1,
-                backgroundColor: 'rgba(0, 0, 0, 0.0)',
-                flexDirection: 'row', 
-                justifyContent: 'center',
-                alignContent: 'center'
-              }}
-            >
-              <Ionicons
-                name="water" 
-                size={35} 
-                color="#457b9d" 
-              />
-              {
-                isFocused?
-                  store.monitor?
-                    <Text style={styles.info}>{`${store.monitor?.substring(store.monitor?.indexOf('x') + 1)}%`}</Text>
-                  :
-                    <Text style={styles.info}>...</Text>
-                :
-                  <ActivityIndicator style={styles.loader} color={'white'} size={30}/>
-              }
-            </VW>
-          </VW> */}
+              <View
+                style={{
+                  flex: 1,
+                  backgroundColor: 'rgba(0, 0, 0, 0.0)',
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  alignContent: 'center',
+                }}>
+                {isFocused
+                  ? store.monitor && (
+                      <>
+                        <Text
+                          style={
+                            styles.info
+                          }>{`${store.monitor?.substring(store.monitor?.indexOf('x') + 1)}%`}</Text>
+                        <Ionicons name="water" size={35} color="#457b9d" />
+                      </>
+                    )
+                  : null}
+              </View>
+            </View>
           </ImageBackground>
         </TouchableOpacity>
       </ScrollView>

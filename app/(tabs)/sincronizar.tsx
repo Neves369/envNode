@@ -1,9 +1,9 @@
 import { useCallback, useState } from 'react';
-import { useFocusEffect } from '@react-navigation/native';
-import { Modal, View, Text, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
 import Sync from '~/components/animations/Sync';
 import Pulse from '~/components/animations/Pulse';
+import { useFocusEffect } from '@react-navigation/native';
 import { clearSync, disconnect, useDevicesStore } from '~/bluetooth/BluetoothManager';
+import { Modal, View, Text, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
 
 export default function Sincronizar() {
   const store = useDevicesStore((state) => state);
@@ -30,25 +30,21 @@ export default function Sincronizar() {
 
   return (
     <View style={styles.container}>
-      {isFocused ? (
-        inicializando ? (
-          <>
-            <Sync />
-            <TouchableOpacity onPress={() => {}} style={styles.roundButton2}>
-              <Text style={styles.textButtom2}>SINCRONIZANDO</Text>
-              <Text style={styles.length}>{`${lengthEnvio} de ${lengthDatas}`}</Text>
-            </TouchableOpacity>
-          </>
-        ) : (
-          <>
-            <Pulse />
-            <TouchableOpacity onPress={() => {}} style={styles.roundButton1}>
-              <Text style={styles.textButtom}>INICIAR</Text>
-            </TouchableOpacity>
-          </>
-        )
+      {!inicializando ? (
+        <>
+          <Sync />
+          <TouchableOpacity onPress={() => {}} style={styles.roundButton2}>
+            <Text style={styles.textButtom2}>SINCRONIZANDO</Text>
+            <Text style={styles.length}>{`${lengthEnvio} de ${lengthDatas}`}</Text>
+          </TouchableOpacity>
+        </>
       ) : (
-        <ActivityIndicator color={'#286d9b'} size={150} />
+        <>
+          <Pulse />
+          <TouchableOpacity onPress={() => {}} style={styles.roundButton1}>
+            <Text style={styles.textButtom}>INICIAR</Text>
+          </TouchableOpacity>
+        </>
       )}
 
       {/* <Text>{timerCount}</Text> */}
