@@ -28,6 +28,13 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="grafico"
+        options={{
+          title: 'Gráfico',
+          tabBarIcon: ({ color }) => <TabBarIcon name="pie-chart" color={color} />,
+        }}
+      />
+      <Tabs.Screen
         name="sincronizar"
         options={{
           title: 'Sincronizar',
