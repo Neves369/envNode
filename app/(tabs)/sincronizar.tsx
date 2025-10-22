@@ -30,7 +30,7 @@ export default function Sincronizar() {
 
   return (
     <View style={styles.container}>
-      {!inicializando ? (
+      {inicializando ? (
         <>
           <Sync />
           <TouchableOpacity onPress={() => {}} style={styles.roundButton2}>
