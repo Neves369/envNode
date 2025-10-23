@@ -30,23 +30,30 @@ const GerarGrafico: React.FC = (stats: any) => {
     index: 0,
   });
 
+  // Dados fictícios para teste
+  const dadosTeste = Array.from({ length: 24 }, (_, i) => ({
+    dataSincronizacao: new Date(2025, 9, 23, i, 0).toISOString(),
+    temperatura: Math.round(20 + Math.random() * 15), // Temperatura entre 20°C e 35°C
+    umidade: Math.round(40 + Math.random() * 40), // Umidade entre 40% e 80%
+  }));
+
   // @ts-ignore
   let datas: any[] = [];
   let temps = [];
   let umids = [];
 
-  datas = stats.data.map((e: any) => {
+  datas = (stats.data || dadosTeste).map((e: any) => {
     let dateString = e.dataSincronizacao?.toString().substring(0, 19);
     let date = new Date(dateString);
     let hora = date.toString().substring(16, 21);
     return hora;
   });
 
-  temps = stats.data.map((e: any) => {
+  temps = (stats.data || dadosTeste).map((e: any) => {
     return e.temperatura;
   });
 
-  umids = stats.data.map((e: any) => {
+  umids = (stats.data || dadosTeste).map((e: any) => {
     return e.umidade;
   });
 

@@ -9,6 +9,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { clearInformation } from '../../bluetooth/BluetoothDevice';
 import { ActivityIndicator, Modal, StyleSheet, TouchableOpacity, View, Text } from 'react-native';
 import { BluetoothManager, disconnect, useDevicesStore } from '../../bluetooth/BluetoothManager';
+import GerarGrafico from '~/components/GerarGrafico';
 
 LocaleConfig.locales['br'] = {
   monthNames: [
@@ -46,7 +47,7 @@ LocaleConfig.locales['br'] = {
 LocaleConfig.defaultLocale = 'br';
 
 export default function TabFiveScreen({ navigation }: any) {
-  const [logs, setLogs] = useState();
+  const [logs, setLogs] = useState([]);
   const [erro, setErro] = useState('');
   const store = useDevicesStore((state) => state);
   const [isFocused, setIsFocused] = useState<any>(true);
@@ -110,7 +111,7 @@ export default function TabFiveScreen({ navigation }: any) {
       {isFocused ? (
         logs ? (
           <>
-            {/* <GerarGrafico data={logs} /> */}
+            <GerarGrafico data={logs} />
             <Text style={styles.label}>Selecionar Dia:</Text>
             <TouchableOpacity
               onPress={() => {
