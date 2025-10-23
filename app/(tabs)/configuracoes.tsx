@@ -24,7 +24,11 @@ export default function TabThreeScreen() {
         <Text style={styles.titleCard}>Escala</Text>
         <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 10 }}>
           <Text style={{ marginRight: 10 }}>Celsius</Text>
-          <Switch value={!isCelsius} onValueChange={() => setIsCelsius((prev) => !prev)} />
+          <Switch
+            value={!isCelsius}
+            onValueChange={() => setIsCelsius((prev) => !prev)}
+            thumbColor={!isCelsius ? '#007bff' : '#f4f3f4'}
+          />
           <Text style={{ marginLeft: 10 }}>Fahrenheit</Text>
         </View>
       </View>

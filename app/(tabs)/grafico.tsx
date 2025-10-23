@@ -161,30 +161,28 @@ export default function TabFiveScreen({ navigation }: any) {
       ) : (
         <ActivityIndicator color={'#286d9b'} size={150} />
       )}
-      {/* <Portal>
-        <Modal animationType="fade" visible={showSelecionarDia} transparent={true}>
-          <View
-            style={{
-              backgroundColor: 'rgba(0, 0, 0, 0.2)',
-              flex: 1,
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
-            <Card style={styles.card}>
-              <Calendar
-                onDayPress={(day) => {
-                  selecionarDia(day);
-                }}
-                monthFormat={'MM yyyy'}
-                hideArrows={false}
-                hideExtraDays={true}
-                disableMonthChange={false}
-                firstDay={1}
-              />
-            </Card>
+      <Modal animationType="fade" visible={showSelecionarDia} transparent={true}>
+        <View
+          style={{
+            backgroundColor: 'rgba(0, 0, 0, 0.2)',
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <View style={styles.card}>
+            <Calendar
+              onDayPress={(day) => {
+                selecionarDia(day);
+              }}
+              monthFormat={'MM yyyy'}
+              hideArrows={false}
+              hideExtraDays={true}
+              disableMonthChange={false}
+              firstDay={1}
+            />
           </View>
-        </Modal>
-      </Portal> */}
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -198,8 +196,10 @@ const styles = StyleSheet.create({
   card: {
     height: 350,
     width: '80%',
-    justifyContent: 'center',
+    borderRadius: 10,
     alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'white',
   },
   textButtom: {
     color: '#1d4d6e',
