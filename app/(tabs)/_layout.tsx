@@ -6,7 +6,7 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: 'black',
+        tabBarActiveTintColor: '#007bff',
       }}>
       <Tabs.Screen
         name="index"
@@ -25,6 +25,13 @@ export default function TabLayout() {
         options={{
           title: 'Dashboard',
           tabBarIcon: ({ color }) => <TabBarIcon name="bars" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="grafico"
+        options={{
+          title: 'Gráfico',
+          tabBarIcon: ({ color }) => <TabBarIcon name="pie-chart" color={color} />,
         }}
       />
       <Tabs.Screen
