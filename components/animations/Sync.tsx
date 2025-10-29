@@ -12,7 +12,7 @@ const Sync = () => {
         justifyContent: 'center',
         backgroundColor: 'red',
       }}>
-      <LottieView ref={animation} source={splashW} autoPlay loop resizeMode="contain" />
+      <LottieView source={splashW} autoPlay loop resizeMode="contain" />
     </View>
   );
 };
