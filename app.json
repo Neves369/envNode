@@ -17,6 +17,7 @@
           "launchMode": "most-recent"
         }
       ],
+      "@react-native-firebase/app",
       "expo-web-browser",
       "react-native-ble-plx"
     ],
@@ -43,7 +44,7 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.neves369.envNode",
+      "googleServicesFile": "./google-services.json",
       "permissions": [
         "BLUETOOTH",
         "BLUETOOTH_CONNECT",
@@ -54,7 +55,8 @@
         "BLUETOOTH_ADVERTISE",
         "android.permission.BLUETOOTH",
         "android.permission.BLUETOOTH_ADMIN"
-      ]
+      ],
+      "package": "com.neves369.envNode"
     },
     "extra": {
       "router": {},

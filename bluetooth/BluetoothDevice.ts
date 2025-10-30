@@ -1,12 +1,12 @@
 import { create } from "zustand";
 import { produce } from "immer";
 import { Buffer } from "buffer";
-// import base64, { decode } from 'base-64';
-// import { BleError, Characteristic, Device } from "react-native-ble-plx";
+import base64, { decode } from 'base-64';
+import { BleError, Characteristic, Device } from "react-native-ble-plx";
 import { BluetoothManager, useDevicesStore } from "./BluetoothManager";
 
 type State = {
-  connectedDevice: any | null;
+  connectedDevice: Device | null;
   response: any;
 };
 
@@ -32,13 +32,13 @@ export const BT05_CHARACTERISTIC_UUID_PREFIX = "0000ffe1"; // 0000ffe1-0000-1000
 /**
  * Checa se o dispositivo possui as características necessárias para a comunicação
  */
-export async function isDeviceSupported(device?: any): Promise<boolean> {
+export async function isDeviceSupported(device?: Device): Promise<boolean> {
   const services = await device?.services();
-  const serialService = services?.find((it: { uuid: string; }) =>
+  const serialService = services?.find((it) =>
     it.uuid.startsWith(BT05_SERVICE_UUID_PREFIX)
   );
   const characteristics = await serialService?.characteristics();
-  const serialCharacteristic = characteristics?.find((it: { uuid: string; }) =>
+  const serialCharacteristic = characteristics?.find((it) =>
     it.uuid.startsWith(BT05_CHARACTERISTIC_UUID_PREFIX)
   );
   return serialCharacteristic != null;
@@ -47,7 +47,7 @@ export async function isDeviceSupported(device?: any): Promise<boolean> {
 /**
  * Método genérico para envio de comandos para o módulo
  */
-export async function sendCommandTo(device: any, command: string) {
+export async function sendCommandTo(device: Device, command: string) {
 
  const writeServiceUUID = "0000ffe0-0000-1000-8000-00805f9b34fb"
  const writeCharacteristicUUID = "0000ffe2-0000-1000-8000-00805f9b34fb"

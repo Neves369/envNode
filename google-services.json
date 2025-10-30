@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "443974533782",
+    "firebase_url": "https://envnode-default-rtdb.firebaseio.com",
+    "project_id": "envnode",
+    "storage_bucket": "envnode.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:443974533782:android:f58f738a33ef12a27ab8b7",
+        "android_client_info": {
+          "package_name": "com.dneves.envnode"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAeQi_7zxkOklYjvCAgyztKAA8DyJRaaI0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

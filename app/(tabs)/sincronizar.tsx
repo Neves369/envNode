@@ -1,13 +1,19 @@
-import { useCallback, useState } from 'react';
+import * as FileSystem from 'expo-file-system';
+import * as Gateway from '../../gateway/Gateway';
 import Sync from '~/components/animations/Sync';
 import Pulse from '~/components/animations/Pulse';
+import database from '@react-native-firebase/database';
+import { useCallback, useEffect, useState } from 'react';
+
 import { useFocusEffect } from '@react-navigation/native';
 import { clearSync, disconnect, useDevicesStore } from '~/bluetooth/BluetoothManager';
 import { Modal, View, Text, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { _base64ToArrayBuffer } from '~/utils/ToArrayBuffer';
 
 export default function Sincronizar() {
-  const store = useDevicesStore((state) => state);
+  const reference = database().ref('/ambiente');
   const [visible, setVisible] = useState(false);
+  const store = useDevicesStore((state) => state);
   const [erroSync, setErroSync] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const [lengthDatas, setLengthDatas] = useState(0);
@@ -28,6 +34,64 @@ export default function Sincronizar() {
     }, [])
   );
 
+  // Ouve as mudanças no status do arquivo
+  useEffect(() => {
+    if (isFocused) {
+      if (store.fileStatus === 'END_FILE' || store.fileStatus === 'NO_FILE') {
+        saveFile();
+      }
+    }
+  }, [isFocused, store.fileStatus]);
+
+  // 1ª Etapa -  Função para pegar as datas dessincronizadas
+  const PegarDatasDessincronizadas = async () => {
+    // setInicializando(true)
+    // await SyncService.GetData(store.serial)
+    // .then(async(resp: any)=>{
+    //   if(resp.status == 200){
+    //     setDatas(resp.data)
+    PegarDatasDoModulo('00000000');
+    //     setLengthDatas(resp.data.length)
+    //   }
+    //   else{
+    //     setVisible(true)
+    //     setErroSync(true)
+    //     setMessageErroSync("Erro, não foi possível buscar dados")
+    //     setTimeout(() => {
+    //       setVisible(false)
+    //       setErroSync(false)
+    //       setMessageErroSync("")
+    //       setInicializando(false)
+    //     }, 2000);
+    //   }
+    // })
+  };
+
+  // 2ª Etapa - Função para pegar os dados do módulo
+  // Não precisa de retorno, o retorno é tratado no BluetoothManager.tsx
+  const PegarDatasDoModulo = async (data: string) => {
+    Gateway.getFile(store.connectedDevice, data.replace(/\//g, ''));
+  };
+
+  // 3ª Etapa - Função para salvar o arquivo e enviar para o servidor
+  const saveFile = async () => {
+    try {
+      let fileUri =
+        FileSystem.documentDirectory +
+        `relatorios/TU_${store.serial}${datas[datas.length - 1].replace(/\//g, '')}.txt`;
+      await FileSystem.makeDirectoryAsync(FileSystem.documentDirectory + 'relatorios/');
+      await FileSystem.writeAsStringAsync(fileUri, store.file.replace('START_FILE', ''));
+      const Base64 = await FileSystem.readAsStringAsync(fileUri, {
+        encoding: FileSystem.EncodingType.Base64,
+      });
+
+      let arrayBuffer = _base64ToArrayBuffer(Base64);
+      // Enviar para o servidor (continuar depois)
+    } catch (error) {
+      console.log('Erro ao salvar o arquivo: ', error);
+    }
+  };
+
   return (
     <View style={styles.container}>
       {inicializando ? (
@@ -41,7 +105,11 @@ export default function Sincronizar() {
       ) : (
         <>
           <Pulse />
-          <TouchableOpacity onPress={() => {}} style={styles.roundButton1}>
+          <TouchableOpacity
+            onPress={() => {
+              PegarDatasDessincronizadas();
+            }}
+            style={styles.roundButton1}>
             <Text style={styles.textButtom}>INICIAR</Text>
           </TouchableOpacity>
         </>
