@@ -124,10 +124,10 @@ export default function TabFiveScreen({ navigation }: any) {
                 justifyContent: 'center',
                 alignSelf: 'center',
                 height: 50,
-                backgroundColor: '#59b37f',
+                backgroundColor: 'white',
                 borderRadius: 10,
               }}>
-              <Text style={{ fontSize: 16, color: 'white' }}>
+              <Text style={{ fontSize: 16, color: '#59b37f' }}>
                 {Moment(diaSelecionado, 'YYYY-MM-DD').format('DD/MM/YYYY')}
               </Text>
             </TouchableOpacity>
@@ -160,7 +160,7 @@ export default function TabFiveScreen({ navigation }: any) {
           </>
         )
       ) : (
-        <ActivityIndicator color={'#59b37f'} size={120} />
+        <ActivityIndicator color={'white'} size={120} />
       )}
       <Modal animationType="fade" visible={showSelecionarDia} transparent={true}>
         <View
@@ -191,8 +191,9 @@ export default function TabFiveScreen({ navigation }: any) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#59b37f',
   },
   card: {
     height: 350,
@@ -218,6 +219,7 @@ const styles = StyleSheet.create({
     width: '90%',
     fontSize: 16,
     marginTop: 5,
+    color: 'white',
     fontWeight: 'bold',
     alignItems: 'center',
   },
