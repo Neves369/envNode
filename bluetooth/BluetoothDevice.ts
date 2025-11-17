@@ -60,6 +60,8 @@ export async function sendCommandTo(device: Device, command: string) {
   writeCharacteristicUUID,
   Buffer.from(`${command}`).toString("base64")
   )
+
+console.log("Resposta do comando ", command, ": ", response);
   
   updateStore((state) => {
     state.response = response

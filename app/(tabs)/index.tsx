@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useLayoutEffect } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { DeviceList } from '~/components/DeviceList';
 import { Button, StyleSheet, View, Text, Platform, PermissionsAndroid } from 'react-native';
 import { changeFirstTime, global } from '~/store/GlobalStates';
@@ -12,11 +13,16 @@ import {
 } from '~/bluetooth/BluetoothManager';
 
 export default function Home() {
+  const navigation = useNavigation();
   const [state, setState] = useState('PoweredOff');
   const [loading, setLoading] = useState(false);
   const [scaneado, setScaneado] = useState(false);
   const globalStates = global((state) => state);
   const store = useDevicesStore((state) => state);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({ headerTitle: 'Monitora AÍ' });
+  }, [navigation]);
 
   useEffect(() => {
     const subscription = BluetoothManager.onStateChange((state) => {
@@ -55,6 +61,7 @@ export default function Home() {
     try {
       setLoading(true);
       connect(store.devices[id]);
+      setLoading(false);
     } catch (error) {
       console.error('Erro ao conectar:', error);
       setLoading(false);
@@ -66,6 +73,7 @@ export default function Home() {
       <View style={styles.container}>
         {Object.values(store.devices).length <= 0 && (
           <Button
+            color={'#438a60'}
             disabled={state !== 'PoweredOn'}
             title={'Procurar Dispositivos'}
             onPress={scanDevices}
@@ -88,7 +96,7 @@ export default function Home() {
         )}
 
         {state === 'PoweredOff' && (
-          <Text style={{ color: 'red', marginTop: 20 }}>
+          <Text style={{ color: '#e7e6e6', marginTop: 20 }}>
             Bluetooth está desligado. Por favor, ative o Bluetooth.
           </Text>
         )}
@@ -116,14 +124,15 @@ const styles = StyleSheet.create({
     paddingTop: 24,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#59b37f',
   },
   card: {
     width: '100%',
     margin: 5,
   },
   footerContainer: {
-    width: '100%',
     height: 50,
+    width: '100%',
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'center',
@@ -144,9 +153,10 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    fontWeight: 'bold',
     marginTop: 15,
+    color: 'white',
     marginBottom: 30,
+    fontWeight: 'bold',
   },
   backdrop: {
     backgroundColor: 'rgba(0, 0, 0, 0.5)',

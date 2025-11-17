@@ -78,7 +78,7 @@ export default function TabFiveScreen({ navigation }: any) {
             disconnect();
             clearInformation();
             subscription.remove();
-            navigation.navigate('TabOne');
+            // navigation.navigate('TabOne');
           }
         }, true);
         return () => subscription.remove();
@@ -124,10 +124,10 @@ export default function TabFiveScreen({ navigation }: any) {
                 justifyContent: 'center',
                 alignSelf: 'center',
                 height: 50,
-                backgroundColor: 'rgba(180, 180, 180, 0.2)',
+                backgroundColor: '#59b37f',
                 borderRadius: 10,
               }}>
-              <Text style={{ fontSize: 16 }}>
+              <Text style={{ fontSize: 16, color: 'white' }}>
                 {Moment(diaSelecionado, 'YYYY-MM-DD').format('DD/MM/YYYY')}
               </Text>
             </TouchableOpacity>
@@ -160,7 +160,7 @@ export default function TabFiveScreen({ navigation }: any) {
           </>
         )
       ) : (
-        <ActivityIndicator color={'#286d9b'} size={150} />
+        <ActivityIndicator color={'#59b37f'} size={120} />
       )}
       <Modal animationType="fade" visible={showSelecionarDia} transparent={true}>
         <View
@@ -217,6 +217,7 @@ const styles = StyleSheet.create({
   label: {
     width: '90%',
     fontSize: 16,
+    marginTop: 5,
     fontWeight: 'bold',
     alignItems: 'center',
   },

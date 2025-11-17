@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:443974533782:android:f58f738a33ef12a27ab8b7",
+        "mobilesdk_app_id": "1:443974533782:android:3c9c809fbbd895547ab8b7",
         "android_client_info": {
-          "package_name": "com.dneves.envnode"
+          "package_name": "com.neves369.envNode"
         }
       },
       "oauth_client": [],

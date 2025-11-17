@@ -54,6 +54,8 @@ export function doDeviceScan() {
       return;
     }
 
+    // console.log("teste: ", device)
+
     updateStore((state) => {
       // @ts-ignore
       state.devices[device.id] = device;
@@ -81,6 +83,7 @@ export function stopScanning() {
 export async function connect(deviceToConnect: any) {
   BluetoothManager.stopDeviceScan();
   await BluetoothManager.connectToDevice(deviceToConnect.id).then(async device => {
+    console.log("teste: ", device)
     await device.discoverAllServicesAndCharacteristics();
     BluetoothManager.stopDeviceScan();
     device.services().then(async service => {

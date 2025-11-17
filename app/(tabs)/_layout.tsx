@@ -1,12 +1,13 @@
+import { Image } from 'react-native';
 import { Link, Tabs } from 'expo-router';
-import { HeaderButton } from '../../components/HeaderButton';
+import Logo from '../../assets/images/logo-02.png';
 import { TabBarIcon } from '../../components/TabBarIcon';
 
 export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: '#007bff',
+        tabBarActiveTintColor: '#59B37F',
       }}>
       <Tabs.Screen
         name="index"
@@ -14,8 +15,8 @@ export default function TabLayout() {
           title: 'Conectar',
           tabBarIcon: ({ color }) => <TabBarIcon name="bluetooth-b" color={color} />,
           headerRight: () => (
-            <Link href="/modal" asChild>
-              <HeaderButton />
+            <Link href="/login" style={{ marginRight: 15 }}>
+              <Image source={Logo} resizeMode="cover" style={{ width: 50, height: 40 }} />
             </Link>
           ),
         }}

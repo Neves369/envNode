@@ -176,8 +176,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   textButtom: {
-    color: '#1d4d6e',
     fontSize: 26,
+    color: '#59b37f',
     fontWeight: 'bold',
     alignItems: 'center',
   },
@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 250,
     borderWidth: 5,
-    borderColor: '#2f95dc',
+    borderColor: '#59b37f',
   },
   roundButton2: {
     position: 'absolute',
@@ -214,6 +214,6 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 250,
     // borderWidth: 5,
-    // borderColor: '#2f95dc',
+    // borderColor: '#59b37f',
   },
 });

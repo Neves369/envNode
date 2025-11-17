@@ -42,18 +42,18 @@ const GerarGrafico: React.FC = (stats: any) => {
   let temps = [];
   let umids = [];
 
-  datas = (stats.data || dadosTeste).map((e: any) => {
+  datas = dadosTeste.map((e: any) => {
     let dateString = e.dataSincronizacao?.toString().substring(0, 19);
     let date = new Date(dateString);
     let hora = date.toString().substring(16, 21);
     return hora;
   });
 
-  temps = (stats.data || dadosTeste).map((e: any) => {
+  temps = dadosTeste.map((e: any) => {
     return e.temperatura;
   });
 
-  umids = (stats.data || dadosTeste).map((e: any) => {
+  umids = dadosTeste.map((e: any) => {
     return e.umidade;
   });
 

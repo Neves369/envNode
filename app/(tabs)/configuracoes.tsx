@@ -23,13 +23,15 @@ export default function TabThreeScreen() {
       <View style={styles.card}>
         <Text style={styles.titleCard}>Escala</Text>
         <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 10 }}>
-          <Text style={{ marginRight: 10 }}>Celsius</Text>
+          <Text style={{ marginRight: 10, color: isCelsius ? '#438a60' : 'black' }}>Celsius</Text>
           <Switch
             value={!isCelsius}
             onValueChange={() => setIsCelsius((prev) => !prev)}
-            thumbColor={!isCelsius ? '#007bff' : '#f4f3f4'}
+            thumbColor={!isCelsius ? '#59b37f' : '#f4f3f4'}
           />
-          <Text style={{ marginLeft: 10 }}>Fahrenheit</Text>
+          <Text style={{ marginLeft: 10, color: !isCelsius ? '#438a60' : 'black' }}>
+            Fahrenheit
+          </Text>
         </View>
       </View>
 
@@ -41,7 +43,7 @@ export default function TabThreeScreen() {
               key={item}
               style={{
                 padding: 10,
-                backgroundColor: selectedIndexInt === idx ? '#007bff' : '#eee',
+                backgroundColor: selectedIndexInt === idx ? '#59b37f' : '#eee',
                 margin: 5,
                 borderRadius: 5,
               }}
@@ -60,23 +62,26 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 24,
     alignItems: 'center',
+    backgroundColor: '#59b37f',
   },
   card: {
     margin: 5,
-    width: '95%',
+    width: '90%',
+    elevation: 5,
     alignItems: 'center',
-    backgroundColor: '#ffffffa6',
+    backgroundColor: '#ffffff',
   },
   title: {
     flex: 1,
-    textAlign: 'center',
     fontSize: 26,
-    fontWeight: 'bold',
     color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
   titleCard: {
-    marginTop: 15,
     fontSize: 18,
+    marginTop: 15,
+    color: '#438a60',
     fontWeight: 'bold',
   },
 });
