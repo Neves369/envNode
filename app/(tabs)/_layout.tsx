@@ -1,5 +1,5 @@
-import { Image } from 'react-native';
 import { Link, Tabs } from 'expo-router';
+import { Image, View } from 'react-native';
 import Logo from '../../assets/images/logo-02.png';
 import { TabBarIcon } from '../../components/TabBarIcon';
 
@@ -8,46 +8,124 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarShowLabel: false,
-        tabBarActiveTintColor: '#59B37F',
+        tabBarActiveTintColor: 'white',
+        tabBarInactiveTintColor: '#59B37F',
+        tabBarStyle: {
+          elevation: 5,
+          backgroundColor: 'whitesmoke',
+        },
       }}>
       <Tabs.Screen
         name="index"
         options={{
           title: 'Conectar',
-          tabBarIcon: ({ color }) => <TabBarIcon name="bluetooth-b" color={color} />,
-          headerRight: () => (
-            <Link href="/login" style={{ marginRight: 15 }}>
-              <Image source={Logo} resizeMode="cover" style={{ width: 50, height: 40 }} />
-            </Link>
+          tabBarIcon: ({ focused }) => (
+            <View
+              style={{
+                width: 80,
+                height: 60,
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderBottomLeftRadius: 40,
+                borderBottomRightRadius: 40,
+                backgroundColor: focused ? '#59B37F' : 'transparent',
+              }}>
+              <TabBarIcon
+                name="bluetooth-b"
+                color={focused ? 'white' : '#59B37F'}
+                focused={focused}
+              />
+            </View>
           ),
+          // headerRight: () => ,
         }}
       />
       <Tabs.Screen
         name="dashboard"
         options={{
           title: 'Dashboard',
-          tabBarIcon: ({ color }) => <TabBarIcon name="bars" color={color} />,
+          tabBarIcon: ({ focused }) => (
+            <View
+              style={{
+                width: 80,
+                height: 60,
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderBottomLeftRadius: 40,
+                borderBottomRightRadius: 40,
+                backgroundColor: focused ? '#59B37F' : 'transparent',
+              }}>
+              <TabBarIcon name="bars" color={focused ? 'white' : '#59B37F'} focused={focused} />
+            </View>
+          ),
         }}
       />
       <Tabs.Screen
         name="grafico"
         options={{
           title: 'Gráfico',
-          tabBarIcon: ({ color }) => <TabBarIcon name="pie-chart" color={color} />,
+          tabBarIcon: ({ focused }) => (
+            <View
+              style={{
+                width: 80,
+                height: 60,
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderBottomLeftRadius: 40,
+                borderBottomRightRadius: 40,
+                backgroundColor: focused ? '#59B37F' : 'transparent',
+              }}>
+              <TabBarIcon
+                name="pie-chart"
+                color={focused ? 'white' : '#59B37F'}
+                focused={focused}
+              />
+            </View>
+          ),
         }}
       />
       <Tabs.Screen
         name="sincronizar"
         options={{
           title: 'Sincronizar',
-          tabBarIcon: ({ color }) => <TabBarIcon name="paper-plane" color={color} />,
+          tabBarIcon: ({ focused }) => (
+            <View
+              style={{
+                width: 80,
+                height: 60,
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderBottomLeftRadius: 40,
+                borderBottomRightRadius: 40,
+                backgroundColor: focused ? '#59B37F' : 'transparent',
+              }}>
+              <TabBarIcon
+                name="paper-plane"
+                color={focused ? 'white' : '#59B37F'}
+                focused={focused}
+              />
+            </View>
+          ),
         }}
       />
       <Tabs.Screen
         name="configuracoes"
         options={{
           title: 'Configurações',
-          tabBarIcon: ({ color }) => <TabBarIcon name="sliders" color={color} />,
+          tabBarIcon: ({ focused }) => (
+            <View
+              style={{
+                width: 80,
+                height: 60,
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderBottomLeftRadius: 40,
+                borderBottomRightRadius: 40,
+                backgroundColor: focused ? '#59B37F' : 'transparent',
+              }}>
+              <TabBarIcon name="sliders" color={focused ? 'white' : '#59B37F'} focused={focused} />
+            </View>
+          ),
         }}
       />
     </Tabs>

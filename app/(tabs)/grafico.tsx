@@ -218,7 +218,6 @@ const styles = StyleSheet.create({
   label: {
     width: '90%',
     fontSize: 16,
-    marginTop: 5,
     color: 'white',
     fontWeight: 'bold',
     alignItems: 'center',

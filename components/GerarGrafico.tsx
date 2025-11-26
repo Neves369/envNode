@@ -5,14 +5,13 @@ import { Dimensions, View } from 'react-native';
 import Svg, { Rect, Text } from 'react-native-svg';
 
 const { width } = Dimensions.get('window');
-const height = 500;
+const height = 450;
 
 const chartConfig = {
   decimalPlaces: 0,
   backgroundColor: '#59b37f',
   backgroundGradientFrom: '#59b37f',
   backgroundGradientTo: '#59b37f',
-  // color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
   color: (opacity = 1) => `white`,
 };
 

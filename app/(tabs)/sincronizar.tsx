@@ -166,8 +166,9 @@ export default function Sincronizar() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#59b37f',
   },
   card: {
     minHeight: 200,
@@ -177,7 +178,7 @@ const styles = StyleSheet.create({
   },
   textButtom: {
     fontSize: 26,
-    color: '#59b37f',
+    color: 'white',
     fontWeight: 'bold',
     alignItems: 'center',
   },
