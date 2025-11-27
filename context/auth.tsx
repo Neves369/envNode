@@ -39,7 +39,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   // Função assíncrona para realizar o login.
   const signIn = async (usuario: IUsuario) => {
-    await AsyncStorage.setItem('@User', JSON.stringify(usuario));
+    // await AsyncStorage.setItem('@User', JSON.stringify(usuario));
+    console.log('Signing in user: ', usuario);
     setUser(usuario); // Armazena os dados do usuário no estado.
     setSigned(true); // Atualiza o estado para indicar que o usuário está autenticado.
 
@@ -50,7 +51,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   // Função para realizar o logout.
   const signOut = async () => {
-    await AsyncStorage.removeItem('@User');
+    // await AsyncStorage.removeItem('@User');
     setUser(undefined);
     setSigned(false);
   };

@@ -10,6 +10,10 @@ export default function TabLayout() {
         tabBarShowLabel: false,
         tabBarActiveTintColor: 'white',
         tabBarInactiveTintColor: '#59B37F',
+        headerTitleStyle: {
+          color: '#438a60',
+          fontWeight: 'bold',
+        },
         tabBarStyle: {
           elevation: 5,
           backgroundColor: 'whitesmoke',
@@ -37,7 +41,11 @@ export default function TabLayout() {
               />
             </View>
           ),
-          // headerRight: () => ,
+          headerRight: () => (
+            <Link href="/modal" style={{ marginRight: 15 }}>
+              <Image source={Logo} resizeMode="cover" style={{ width: 50, height: 40 }} />
+            </Link>
+          ),
         }}
       />
       <Tabs.Screen

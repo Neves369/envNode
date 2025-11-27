@@ -1,16 +1,20 @@
 import { useCallback, useState } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import { StyleSheet, View, TouchableOpacity, Text, Switch } from 'react-native';
+import { useAuth } from '~/context/auth';
+import { router } from 'expo-router';
 
 const data2 = ['10', '20', '30', '40', '50', '60'];
 
 export default function TabThreeScreen() {
+  const { user } = useAuth();
   const [isFocused, setIsFocused] = useState(false);
   const [isCelsius, setIsCelsius] = useState(true);
   const [selectedIndexInt, setSelectedIndexInt] = useState(0);
 
   useFocusEffect(
     useCallback(() => {
+      console.log('Configurações focado: ', user);
       setTimeout(() => {
         setIsFocused(true);
       }, 2000);
@@ -20,6 +24,17 @@ export default function TabThreeScreen() {
 
   return (
     <View style={styles.container}>
+      <TouchableOpacity
+        onPress={() => {
+          router.replace('/(sub)/account');
+        }}
+        style={styles.cardConta}>
+        <View style={styles.account}>
+          <Text style={{ fontSize: 40, color: 'white' }}>{user?.nome.charAt(0)}</Text>
+        </View>
+        <Text style={[styles.titleCard, { marginRight: 65 }]}>{user?.nome}</Text>
+      </TouchableOpacity>
+
       <View style={styles.card}>
         <Text style={styles.titleCard}>Escala</Text>
         <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 10 }}>
@@ -64,12 +79,30 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#59b37f',
   },
+  account: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#59b37f',
+  },
   card: {
     margin: 5,
     width: '90%',
     elevation: 5,
     alignItems: 'center',
     backgroundColor: '#ffffff',
+  },
+  cardConta: {
+    margin: 5,
+    width: '90%',
+    elevation: 5,
+    padding: 35,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#ffffff',
+    justifyContent: 'space-between',
   },
   title: {
     flex: 1,

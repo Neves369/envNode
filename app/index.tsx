@@ -16,11 +16,11 @@ import Animated, {
   useSharedValue,
   useAnimatedStyle,
 } from 'react-native-reanimated';
+import { useRouter } from 'expo-router';
+import { useAuth } from '~/context/auth';
 import { StatusBar } from 'expo-status-bar';
 import Svg, { Image, Circle, ClipPath } from 'react-native-svg';
 import { Gesture, GestureDetector, TextInput } from 'react-native-gesture-handler';
-import { useAuth } from '~/context/auth';
-import { useRouter } from 'expo-router';
 
 const { height, width } = Dimensions.get('window');
 
@@ -116,7 +116,7 @@ const Login = () => {
   const submit = () => {
     setLoading(true);
     setTimeout(() => {
-      signIn({ email: email, senha: senha, nome: 'Teste' });
+      signIn({ email: email, senha: senha, nome: 'Douglas Neves' });
       router.replace('/(tabs)');
       setLoading(false);
     }, 3000);
