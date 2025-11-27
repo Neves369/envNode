@@ -73,7 +73,7 @@ export default function Home() {
       <View style={styles.container}>
         {Object.values(store.devices).length <= 0 && (
           <Button
-            color={'#438a60'}
+            color={'#59b37f'}
             disabled={state !== 'PoweredOn'}
             title={'Procurar Dispositivos'}
             onPress={scanDevices}
@@ -95,11 +95,9 @@ export default function Home() {
           </>
         )}
 
-        {state === 'PoweredOff' && (
-          <Text style={{ color: '#e7e6e6', marginTop: 20 }}>
-            Bluetooth está desligado. Por favor, ative o Bluetooth.
-          </Text>
-        )}
+        <Text style={{ color: '#e7e6e6', marginTop: 10, textAlign: 'center' }}>
+          {state === 'PoweredOff' ? 'Bluetooth está desligado.' : ''}
+        </Text>
 
         {store.connectedDevice && (
           <View style={styles.footerContainer}>
@@ -124,7 +122,7 @@ const styles = StyleSheet.create({
     paddingTop: 24,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#59b37f',
+    backgroundColor: '#438a60',
   },
   card: {
     width: '100%',

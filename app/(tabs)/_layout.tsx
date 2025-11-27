@@ -32,7 +32,7 @@ export default function TabLayout() {
                 justifyContent: 'center',
                 borderBottomLeftRadius: 40,
                 borderBottomRightRadius: 40,
-                backgroundColor: focused ? '#59B37F' : 'transparent',
+                backgroundColor: focused ? '#438a60' : 'transparent',
               }}>
               <TabBarIcon
                 name="bluetooth-b"
@@ -61,7 +61,7 @@ export default function TabLayout() {
                 justifyContent: 'center',
                 borderBottomLeftRadius: 40,
                 borderBottomRightRadius: 40,
-                backgroundColor: focused ? '#59B37F' : 'transparent',
+                backgroundColor: focused ? '#438a60' : 'transparent',
               }}>
               <TabBarIcon name="bars" color={focused ? 'white' : '#59B37F'} focused={focused} />
             </View>
@@ -81,7 +81,7 @@ export default function TabLayout() {
                 justifyContent: 'center',
                 borderBottomLeftRadius: 40,
                 borderBottomRightRadius: 40,
-                backgroundColor: focused ? '#59B37F' : 'transparent',
+                backgroundColor: focused ? '#438a60' : 'transparent',
               }}>
               <TabBarIcon
                 name="pie-chart"
@@ -105,7 +105,7 @@ export default function TabLayout() {
                 justifyContent: 'center',
                 borderBottomLeftRadius: 40,
                 borderBottomRightRadius: 40,
-                backgroundColor: focused ? '#59B37F' : 'transparent',
+                backgroundColor: focused ? '#438a60' : 'transparent',
               }}>
               <TabBarIcon
                 name="paper-plane"
@@ -129,7 +129,7 @@ export default function TabLayout() {
                 justifyContent: 'center',
                 borderBottomLeftRadius: 40,
                 borderBottomRightRadius: 40,
-                backgroundColor: focused ? '#59B37F' : 'transparent',
+                backgroundColor: focused ? '#438a60' : 'transparent',
               }}>
               <TabBarIcon name="sliders" color={focused ? 'white' : '#59B37F'} focused={focused} />
             </View>

@@ -1,12 +1,7 @@
-import React from 'react';
-import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Image } from 'react-native';
-import { AntDesign } from '@expo/vector-icons'; // Usando AntDesign do expo/vector-icons
 import { useAuth } from '~/context/auth';
-// Se não estiver usando Expo, você precisará instalar uma biblioteca de ícones
-// Ex: `react-native-vector-icons` e importá-la de forma diferente.
+import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Image } from 'react-native';
 
-// Componente para a linha de detalhe (Email, Gênero, etc.)
-const DetailRow = ({ label, value, isLast }) => (
+const DetailRow = ({ label, value, isLast }: any) => (
   <View style={[styles.detailRow, !isLast && styles.detailRowBorder]}>
     <Text style={styles.detailLabel}>{label}</Text>
     <Text style={styles.detailValue}>{value}</Text>
@@ -22,32 +17,22 @@ const ProfileSettingsScreen = () => {
       <View style={styles.profileSection}>
         <View style={styles.profilePicContainer}>
           <View style={styles.account}>
-            <Text style={{ fontSize: 40, color: 'white' }}>{user?.nome.charAt(0)}</Text>
+            <Text style={{ fontSize: 40, color: '#59b37f' }}>{user?.nome.charAt(0)}</Text>
           </View>
         </View>
-        {/* Nomes */}
-        {/* <View style={styles.nameFields}>
-          <Text style={styles.nameText}>{profile.firstName}</Text>
-          <View style={styles.nameSeparator} />
-          <Text style={styles.nameText}>{profile.lastName}</Text>
-        </View> */}
       </View>
 
       {/* Seção de Detalhes */}
       <View style={styles.detailsSection}>
-        <DetailRow label="Email" value={user?.email} />
-        <DetailRow label="Plano" value={'Premium'} />
-        {/* <DetailRow label="Age" value={profile.age} /> */}
-        {/* <DetailRow label="Weight" value={profile.weight} /> */}
-        {/* <DetailRow label="Height" value={profile.height} isLast={true} /> */}
+        <DetailRow label="Nome" value={user?.nome} isLast={false} />
+        <DetailRow label="Email" value={user?.email} isLast={false} />
+        <DetailRow label="Plano" value={'Premium'} isLast={true} />
       </View>
 
       {/* Botão DONE */}
       <TouchableOpacity style={styles.doneButton}>
-        <Text style={styles.doneButtonText}>DONE</Text>
+        <Text style={styles.doneButtonText}>SALVAR</Text>
       </TouchableOpacity>
-
-      <View style={styles.bottomSpacer} />
     </SafeAreaView>
   );
 };
@@ -55,7 +40,7 @@ const ProfileSettingsScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#438a60',
   },
   profileSection: {
     paddingHorizontal: 20,
@@ -82,25 +67,23 @@ const styles = StyleSheet.create({
     borderRadius: 40,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#59b37f',
+    backgroundColor: 'white',
   },
   lockIconBackground: {
-    position: 'absolute',
-    bottom: 0,
     right: 0,
+    bottom: 0,
     width: 24,
     height: 24,
-    borderRadius: 12,
-    backgroundColor: '#404040', // Cor do fundo do cadeado
-    justifyContent: 'center',
-    alignItems: 'center',
-    // Adicionando uma borda branca para destacar (opcional)
     borderWidth: 2,
+    borderRadius: 12,
+    position: 'absolute',
+    alignItems: 'center',
     borderColor: '#fff',
+    justifyContent: 'center',
+    backgroundColor: '#404040', // Cor do fundo do cadeado
   },
   lockIcon: {
-    // A cor é definida acima
-    marginTop: 1, // Pequeno ajuste de alinhamento
+    marginTop: 1,
     marginLeft: 1,
   },
   nameFields: {
@@ -110,23 +93,22 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '400',
     paddingVertical: 5,
-    // Linha pontilhada simulada - não é um campo de entrada real, mas parece um
-    borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: '#ccc',
+    borderBottomWidth: StyleSheet.hairlineWidth,
   },
   nameSeparator: {
     height: 10, // Espaçamento entre os nomes
   },
   bioText: {
     fontSize: 14,
-    color: '#333',
     lineHeight: 20,
+    color: '#333',
     marginBottom: 20,
   },
   // --- Seção de Detalhes ---
   detailsSection: {
-    paddingHorizontal: 20,
     marginTop: 10,
+    paddingHorizontal: 20,
   },
   detailRow: {
     flexDirection: 'row',
@@ -135,36 +117,32 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
   },
   detailRowBorder: {
+    borderBottomColor: '#f3f3f3',
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: '#ccc',
   },
   detailLabel: {
     fontSize: 16,
-    color: '#666',
+    color: 'white',
   },
   detailValue: {
     fontSize: 16,
+    color: 'white',
     fontWeight: '400',
-    color: '#000',
   },
   // --- Botão DONE ---
   doneButton: {
-    marginHorizontal: 20,
     marginTop: 30,
-    backgroundColor: '#3b82f6', // Cor azul vibrante
-    paddingVertical: 15,
     borderRadius: 8,
+    paddingVertical: 15,
+    marginHorizontal: 20,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: 'white',
   },
   doneButtonText: {
-    color: '#fff',
     fontSize: 18,
     fontWeight: 'bold',
-  },
-  // --- Espaçamento Inferior ---
-  bottomSpacer: {
-    height: 34, // Espaço para a barra de navegação inferior (simulada)
+    color: '#59b37f',
   },
 });
 

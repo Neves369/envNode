@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import {
   View,
   Text,
@@ -7,74 +7,40 @@ import {
   ImageBackground,
   TouchableOpacity,
 } from 'react-native';
-
 import { useFocusEffect } from 'expo-router';
-import * as Gateway from '../../gateway/Gateway';
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
-import { clearInformation } from '../../bluetooth/BluetoothDevice';
-import { BluetoothManager, disconnect, useDevicesStore } from '../../bluetooth/BluetoothManager';
+import { subscribeToLatestReading } from '../../services/RealtimeService';
+import { useDevicesStore } from '../../bluetooth/BluetoothManager';
 
 export default function Home() {
   const store = useDevicesStore((state) => state);
   const [isFocused, setIsFocused] = useState(false);
   const [clockState, setClockState] = useState<any>();
-  const [timerCount, setTimer] = useState<number>(60);
+  const [latestReading, setLatestReading] = useState<any>(null);
 
   useFocusEffect(
     useCallback(() => {
-      // console.log('Entrou');
-      Gateway.getTU(store.connectedDevice);
-      setTimer(60);
       setTimeout(() => {
         setIsFocused(true);
       }, 2000);
-      return () => setIsFocused(false);
+      const unsubscribe = subscribeToLatestReading('/sensors/data', (reading) => {
+        console.log('Latest reading (realtime):', reading);
+        setLatestReading(reading);
+        if (reading?.timestamp) {
+          const ts =
+            reading.timestamp && reading.timestamp < 1e12
+              ? reading.timestamp * 1000
+              : reading.timestamp;
+          setClockState(new Date(ts).toLocaleString());
+        }
+      });
+
+      return () => {
+        unsubscribe && unsubscribe();
+        setIsFocused(false);
+      };
     }, [])
   );
-
-  useEffect(() => {
-    if (isFocused) {
-      BluetoothManager.onStateChange((state) => {
-        const subscription = BluetoothManager.onStateChange((state) => {
-          if (state === 'PoweredOff') {
-            disconnect();
-            clearInformation();
-            subscription.remove();
-            setTimeout(() => {
-              // navigation.navigate('TabOne');
-            }, 1000);
-          }
-        }, true);
-        return () => subscription.remove();
-      });
-    }
-  }, [BluetoothManager]);
-
-  useEffect(() => {
-    if (timerCount === 0 && store.connectedDevice !== null && isFocused === true) {
-      setTimeout(() => {
-        Gateway.getTU(store.connectedDevice);
-      }, 1000);
-      return setTimer(60);
-    }
-
-    let interval = setInterval(() => {
-      if (timerCount > 0) {
-        setTimer((lastTimerCount) => {
-          lastTimerCount <= 1 && clearInterval(interval);
-          return lastTimerCount - 1;
-        });
-      }
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [timerCount]);
-
-  useEffect(() => {
-    setInterval(() => {
-      const date = new Date();
-      setClockState(date.toLocaleTimeString());
-    }, 500);
-  }, []);
 
   return (
     <View style={styles.container}>
@@ -88,7 +54,7 @@ export default function Home() {
             style={styles.itemHeader}
             source={require('../../assets/images/time.jpg')}>
             <View style={styles.viewInfo}>
-              <Text style={styles.title}>Data e Hora</Text>
+              <Text style={styles.title}>Sincronizado</Text>
 
               <View
                 style={{
@@ -98,7 +64,11 @@ export default function Home() {
                   alignContent: 'center',
                 }}>
                 {isFocused ? (
-                  store.monitor && <Text style={styles.info}>{clockState}</Text>
+                  latestReading ? (
+                    <Text style={styles.info}>{clockState}</Text>
+                  ) : (
+                    <Text style={styles.info}>--</Text>
+                  )
                 ) : (
                   <Text style={styles.info}>{clockState}</Text>
                 )}
@@ -109,8 +79,10 @@ export default function Home() {
 
         <TouchableOpacity style={styles.item}>
           <ImageBackground
+            blurRadius={5}
             style={styles.itemHeader}
             source={require('../../assets/images/temperatura.png')}>
+            <View style={[StyleSheet.absoluteFill, { backgroundColor: '#adadad', opacity: 0.2 }]} />
             <View style={styles.viewInfo}>
               <Text style={styles.title}>Temperatura</Text>
 
@@ -122,20 +94,20 @@ export default function Home() {
                   alignContent: 'center',
                 }}>
                 {isFocused ? (
-                  store.monitor && (
+                  latestReading ? (
                     <>
-                      {/* <Text
-                        style={
-                          styles.info
-                        }>{`${store.monitor?.substring(0, store.monitor.indexOf('x'))}°`}</Text> */}
-                      <Text style={styles.info}>{`26°C`}</Text>
-
+                      <Text style={styles.info}>{`${latestReading.temperature ?? '--'}°C`}</Text>
+                      <FontAwesome name="thermometer" size={35} color="#e63946" />
+                    </>
+                  ) : (
+                    <>
+                      <Text style={styles.info}>{`--°C`}</Text>
                       <FontAwesome name="thermometer" size={35} color="#e63946" />
                     </>
                   )
                 ) : (
                   <>
-                    <Text style={styles.info}>{`26°C`}</Text>
+                    <Text style={styles.info}>{`${latestReading?.temperature ?? '--'}°C`}</Text>
                     <FontAwesome name="thermometer" size={35} color="#e63946" />
                   </>
                 )}
@@ -160,19 +132,20 @@ export default function Home() {
                   alignContent: 'center',
                 }}>
                 {isFocused ? (
-                  store.monitor && (
+                  latestReading ? (
                     <>
-                      {/* <Text
-                        style={
-                          styles.info
-                        }>{`${store.monitor?.substring(store.monitor?.indexOf('x') + 1)}%`}</Text> */}
-                      <Text style={styles.info}>{`79%`}</Text>
+                      <Text style={styles.info}>{`${latestReading.humidity ?? '--'}%`}</Text>
+                      <Ionicons name="water" size={35} color="#457b9d" />
+                    </>
+                  ) : (
+                    <>
+                      <Text style={styles.info}>{`--%`}</Text>
                       <Ionicons name="water" size={35} color="#457b9d" />
                     </>
                   )
                 ) : (
                   <>
-                    <Text style={styles.info}>{`79%`}</Text>
+                    <Text style={styles.info}>{`${latestReading?.humidity ?? '--'}%`}</Text>
                     <Ionicons name="water" size={35} color="#457b9d" />
                   </>
                 )}
@@ -189,7 +162,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: '#59b37f',
+    backgroundColor: '#438a60',
   },
   title: {
     flex: 1,

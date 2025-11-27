@@ -9,9 +9,9 @@ const height = 450;
 
 const chartConfig = {
   decimalPlaces: 0,
-  backgroundColor: '#59b37f',
-  backgroundGradientFrom: '#59b37f',
-  backgroundGradientTo: '#59b37f',
+  backgroundColor: '#438a60',
+  backgroundGradientFrom: '#438a60',
+  backgroundGradientTo: '#438a60',
   color: (opacity = 1) => `white`,
 };
 
@@ -68,7 +68,7 @@ const GerarGrafico: React.FC = (stats: any) => {
       },
       {
         data: umids,
-        color: (opacity = 1) => `#457b9d`, // optional
+        color: (opacity = 1) => `#09bbe7`, // optional
       },
     ],
     legend: ['Temperatura', 'Umidade'], // optional

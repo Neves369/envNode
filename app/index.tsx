@@ -185,7 +185,7 @@ const Login = () => {
               autoCapitalize="none"
               onChangeText={setEmail}
               style={styles.textInput}
-              placeholderTextColor="black"
+              placeholderTextColor="#438a60"
               keyboardType="email-address"
             />
             <TextInput
@@ -195,7 +195,7 @@ const Login = () => {
               onChangeText={setSenha}
               secureTextEntry={true}
               style={styles.textInput}
-              placeholderTextColor="black"
+              placeholderTextColor="#438a60"
             />
             <Animated.View style={[styles.button]}>
               {!loading ? (
@@ -248,12 +248,13 @@ const styles = StyleSheet.create({
   },
   textInput: {
     height: 50,
+    borderWidth: 1,
     paddingLeft: 10,
     borderRadius: 25,
-    borderWidth: 0.5,
     marginVertical: 5,
+    color: '#438a60',
     marginHorizontal: 20,
-    borderColor: 'black',
+    borderColor: '#53886983',
     backgroundColor: 'white',
   },
   closeButton: {
@@ -268,7 +269,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     shadowColor: 'black',
     justifyContent: 'center',
-    backgroundColor: 'white',
+    backgroundColor: 'whitesmoke',
     shadowOffset: { height: 2, width: 2 },
   },
   closeButtonText: {

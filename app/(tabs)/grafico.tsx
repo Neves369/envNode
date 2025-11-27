@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#59b37f',
+    backgroundColor: '#438a60',
   },
   card: {
     height: 350,

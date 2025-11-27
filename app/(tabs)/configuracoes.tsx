@@ -7,7 +7,7 @@ import { router } from 'expo-router';
 const data2 = ['10', '20', '30', '40', '50', '60'];
 
 export default function TabThreeScreen() {
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
   const [isFocused, setIsFocused] = useState(false);
   const [isCelsius, setIsCelsius] = useState(true);
   const [selectedIndexInt, setSelectedIndexInt] = useState(0);
@@ -26,7 +26,7 @@ export default function TabThreeScreen() {
     <View style={styles.container}>
       <TouchableOpacity
         onPress={() => {
-          router.replace('/(sub)/account');
+          router.push('/(sub)/account');
         }}
         style={styles.cardConta}>
         <View style={styles.account}>
@@ -68,6 +68,10 @@ export default function TabThreeScreen() {
           ))}
         </View>
       </View>
+
+      <TouchableOpacity onPress={signOut} style={styles.card}>
+        <Text style={[styles.titleCard, styles.exitTitleCard]}>Sair</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -77,7 +81,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 24,
     alignItems: 'center',
-    backgroundColor: '#59b37f',
+    backgroundColor: '#438a60',
   },
   account: {
     width: 80,
@@ -113,8 +117,11 @@ const styles = StyleSheet.create({
   },
   titleCard: {
     fontSize: 18,
-    marginTop: 15,
+    marginVertical: 15,
     color: '#438a60',
     fontWeight: 'bold',
+  },
+  exitTitleCard: {
+    color: '#c90e0e',
   },
 });
