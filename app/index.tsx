@@ -19,6 +19,7 @@ import Animated, {
 import { useRouter } from 'expo-router';
 import { useAuth } from '~/context/auth';
 import { StatusBar } from 'expo-status-bar';
+import auth from '@react-native-firebase/auth';
 import Svg, { Image, Circle, ClipPath } from 'react-native-svg';
 import { Gesture, GestureDetector, TextInput } from 'react-native-gesture-handler';
 
@@ -113,13 +114,26 @@ const Login = () => {
     };
   });
 
-  const submit = () => {
+  const submit = async () => {
     setLoading(true);
-    setTimeout(() => {
-      signIn({ email: email, senha: senha, nome: 'Douglas Neves' });
+    try {
+      const userCredential = await auth().signInWithEmailAndPassword(email, senha);
+      console.log('Usuário logado com sucesso!', userCredential.user);
+      signIn({ email: userCredential.user.email, senha: senha, nome: 'Douglas Neves' });
       router.replace('/(tabs)');
-      setLoading(false);
-    }, 3000);
+    } catch (error: any) {
+      if (error.code === 'auth/invalid-credential') {
+        console.log('Credenciais inválidas: e-mail ou senha incorretos.');
+      } else {
+        console.error(error);
+      }
+    }
+    setLoading(false);
+
+    // setTimeout(() => {
+
+    //   setLoading(false);
+    // }, 3000);
   };
 
   return (

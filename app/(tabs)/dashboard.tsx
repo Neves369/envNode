@@ -9,8 +9,8 @@ import {
 } from 'react-native';
 import { useFocusEffect } from 'expo-router';
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
-import { subscribeToLatestReading } from '../../services/RealtimeService';
 import { useDevicesStore } from '../../bluetooth/BluetoothManager';
+import { subscribeToLatestReading } from '../../services/RealtimeService';
 
 export default function Home() {
   const store = useDevicesStore((state) => state);
@@ -96,18 +96,18 @@ export default function Home() {
                 {isFocused ? (
                   latestReading ? (
                     <>
-                      <Text style={styles.info}>{`${latestReading.temperature ?? '--'}°C`}</Text>
+                      <Text style={styles.info}>{`${latestReading.temperature ?? '--'}°C `}</Text>
                       <FontAwesome name="thermometer" size={35} color="#e63946" />
                     </>
                   ) : (
                     <>
-                      <Text style={styles.info}>{`--°C`}</Text>
+                      <Text style={styles.info}>{`--°C `}</Text>
                       <FontAwesome name="thermometer" size={35} color="#e63946" />
                     </>
                   )
                 ) : (
                   <>
-                    <Text style={styles.info}>{`${latestReading?.temperature ?? '--'}°C`}</Text>
+                    <Text style={styles.info}>{`${latestReading?.temperature ?? '--'}°C `}</Text>
                     <FontAwesome name="thermometer" size={35} color="#e63946" />
                   </>
                 )}
